@@ -1,0 +1,25 @@
+{
+  "name": "lorena-credential",
+  "version": "1.0.0",
+  "description": "Lorena Credentials Management Lib",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lorena-ssi/credential-lib.git"
+  },
+  "keywords": [
+    "lorena",
+    "identity",
+    "credentials",
+    "ssi"
+  ],
+  "author": "Alex Puig <alex@caelumlabs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lorena-ssi/credential-lib/issues"
+  },
+  "homepage": "https://github.com/lorena-ssi/credential-lib#readme"
+}
