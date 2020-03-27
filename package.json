@@ -1,6 +1,6 @@
 {
   "name": "@lorena-ssi/credential-lib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lorena Credentials Management Lib",
   "main": "src/index.js",
   "scripts": {
