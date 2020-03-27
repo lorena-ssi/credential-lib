@@ -20,7 +20,7 @@ module.exports = class Credential {
     else {
       this.credential = require('./credentials/memberOf.json')
     }
-    this.zenroom = new Zenroom()
+    this.zenroom = new Zenroom(true)
   }
 
   /**
