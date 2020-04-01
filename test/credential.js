@@ -1,5 +1,5 @@
-let Credential = require('../src/index')
-let Zenroom = require('@lorena-ssi/zenroom-lib')
+const Credential = require('../src/index')
+const Zenroom = require('@lorena-ssi/zenroom-lib')
 const assert = require('chai').assert
 let zenroom = new Zenroom(true)
 let memberOf = false
