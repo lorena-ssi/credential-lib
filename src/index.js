@@ -5,19 +5,25 @@ const Zenroom = require('@lorena-ssi/zenroom-lib')
 // var debug = require('debug')('did:debug:matrix')
 // var error = require('debug')('did:error:matrix')
 
-/* const findKey = (obj) => {
-} */
+const baseCredential = require('./credentials/credential.json')
+const Subject = {
+  memberOf : require('./credentials/memberOf.json'),
+  action : require('./credentials/action.json')
+}
 
 /**
  * Javascript Class to Manage Credentials.
  */
 module.exports = class Credential {
-  constructor (credential = false) {
+  constructor (subject, credential = false) {
     // Loads the credential we need
+    this.subjectName = subject
     if (credential !== false) {
       this.credential = credential
-    } else {
-      this.credential = require('./credentials/memberOf.json')
+    }
+    else {
+      this.credential = baseCredential
+      this.credential.credentialSubject = Subject[subject]
     }
     this.zenroom = new Zenroom(true)
   }
@@ -27,13 +33,24 @@ module.exports = class Credential {
    *
    * @param {object} credential The credential to be filled.
    */
-  fillSubject (credential) {
-    this.credential.credentialSubject.roleName = credential.roleName
-    this.credential.credentialSubject.member.id = (credential.id ? credential.id : '')
-    this.credential.credentialSubject.member.givenName = credential.givenName
-    this.credential.credentialSubject.member.familyName = credential.familyName
-    this.credential.credentialSubject.member.additionalName = credential.additionalName
-    this.credential.credentialSubject.member.identifier.value = credential.propertyID
+  fillSubject(subject) {
+    switch (this.subjectName) {
+      case 'memberOf':
+        this.credential.credentialSubject.roleName = subject.roleName
+        this.credential.credentialSubject.member.id = (subject.id ? subject.id : '')
+        this.credential.credentialSubject.member.givenName = subject.givenName
+        this.credential.credentialSubject.member.familyName = subject.familyName
+        this.credential.credentialSubject.member.additionalName = subject.additionalName
+        this.credential.credentialSubject.member.identifier.value = subject.propertyID
+        break
+      case 'action':
+        this.credential.credentialSubject.name = subject.name 
+        this.credential.credentialSubject.description = subject.description
+        this.credential.credentialSubject.id = subject.id
+        this.credential.credentialSubject.agent.id = subject.did
+        this.credential.credentialSubject.location.name = subject.location
+        this.credential.credentialSubject.location.potentialAction = subject.potentialAction
+    }
   }
 
   /**
@@ -50,7 +67,7 @@ module.exports = class Credential {
     this.credential.issuanceDate = date.toISOString()
     this.credential.proof.verificationMethod = verificationMethod
 
-    const subject = JSON.stringify(this.credential.credentialSubject)
+    const subject = JSON.stringify(this.subject)
     let proof = await this.zenroom.signMessage(issuer, keyPair, subject)
     proof = JSON.stringify(proof)
     this.credential.proof.signature = proof

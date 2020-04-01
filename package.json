@@ -1,6 +1,6 @@
 {
   "name": "@lorena-ssi/credential-lib",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Lorena Credentials Management Library",
   "main": "src/index.js",
   "author": "Alex Puig <alex@caelumlabs.com>",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/lorena-ssi/credential-lib#readme",
   "dependencies": {
-    "@lorena-ssi/zenroom-lib": "^1.4.7",
+    "@lorena-ssi/zenroom-lib": "^1.4.8",
     "debug": "^4.1.1"
   },
   "devDependencies": {
