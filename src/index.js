@@ -24,6 +24,7 @@ module.exports = class Credential {
     else {
       this.credential = baseCredential
       this.credential.credentialSubject = Subject[subject]
+      this.credential.type.push(this.subjectName)
     }
     this.zenroom = new Zenroom(true)
   }
@@ -59,6 +60,7 @@ module.exports = class Credential {
    *
    * @param {object} keyPair Keypair to sign with
    * @param {string} issuer Identity issuing the credential
+   * @param {string} issuerDid DID for the Identity issuing the credential
    * @param {string} verificationMethod Public Verification method for the signature (if any)
    */
   async signCredential (keyPair, issuer, issuerDid, verificationMethod) {
