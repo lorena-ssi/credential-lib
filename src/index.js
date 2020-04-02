@@ -61,9 +61,9 @@ module.exports = class Credential {
    * @param {string} issuer Identity issuing the credential
    * @param {string} verificationMethod Public Verification method for the signature (if any)
    */
-  async signCredential (keyPair, issuer, verificationMethod) {
+  async signCredential (keyPair, issuer, issuerDid, verificationMethod) {
     const date = new Date()
-    this.credential.issuer = issuer
+    this.credential.issuer = issuerDid
     this.credential.issuanceDate = date.toISOString()
     this.credential.proof.verificationMethod = verificationMethod
 

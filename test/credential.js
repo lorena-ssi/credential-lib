@@ -51,8 +51,8 @@ describe('Credential Object', () => {
 
     it('should sign the Credential', async () => {
       keypair = await zenroom.newKeyPair(issuer)  
-      await memberOf.signCredential(keypair, issuer, verification)
-      assert.equal(memberOf.credential.issuer, issuer,verification)
+      await memberOf.signCredential(keypair, issuer, 'did:lor:test:11111', verification)
+      assert.equal(memberOf.credential.issuer, 'did:lor:test:11111')
       assert.isNotEmpty(memberOf.credential.issuanceDate)
       assert.equal(memberOf.credential.proof.verificationMethod, verification)
       assert.isNotEmpty(memberOf.credential.proof.signature)
