@@ -6,7 +6,7 @@ let memberOf = false
 let action = false
 
 const issuer = 'did:lor:cat:2222'
-const verification = 'https://github.com/.../cat'
+const verification = 'https://github.com/lorena-ssi/lorena-gov/org/test/1.md'
 let keypair = false
 
 const Subject = {
