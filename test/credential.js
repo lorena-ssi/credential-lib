@@ -3,18 +3,21 @@ const Zenroom = require('@lorena-ssi/zenroom-lib')
 let zenroom = new Zenroom(true)
 const assert = require('chai').assert
 
+let loadSubject = false
+
 describe('Credential Object', () => {
   describe('Basics Credential Object', () => {
     it('should create a Credential Object', async () => {        
         const issuer = 'did:lor:lab:1000'
         let org = new cred.Organization(issuer)
         assert.typeOf(org, 'object', 'we have an object')
-        assert.typeOf(org.credential, 'object', 'we have an object')
-        assert.equal(org.credential['@context'][0], 'https://www.w3.org/2018/credentials/v1')
-        assert.equal(org.credential['type'][0], 'VerifiableCredential')
-        assert.equal(org.credential['type'][1], 'Organization')
-        assert.equal(org.credential.credentialSubject['@type'], 'Organization')
-        assert.equal(org.credential.credentialSubject.id, issuer)
+        let credential = org.credential()
+        assert.typeOf(credential, 'object', 'we have an object')
+        assert.equal(credential['@context'][0], 'https://www.w3.org/2018/credentials/v1')
+        assert.equal(credential['type'][0], 'VerifiableCredential')
+        assert.equal(credential['type'][1], 'Organization')
+        assert.equal(credential.credentialSubject['@type'], 'Organization')
+        assert.equal(credential.credentialSubject.id, issuer)
 
         const issuer_id = 'caelum'
         const verification = 'https://github.com/lorena-ssi/lorena-gov/orgs/labtest/1000.md'
@@ -22,10 +25,11 @@ describe('Credential Object', () => {
 
         // Sign  Credential
         await org.signCredential(keypair, issuer_id, issuer, verification)
-        assert.equal(org.credential.issuer, issuer)
-        assert.isNotEmpty(org.credential.issuanceDate)
-        assert.equal(org.credential.proof.verificationMethod, verification)
-        assert.isNotEmpty(org.credential.proof.signature)
+        credential = org.credential()
+        assert.equal(credential.issuer, issuer)
+        assert.isNotEmpty(credential.issuanceDate)
+        assert.equal(credential.proof.verificationMethod, verification)
+        assert.isNotEmpty(credential.proof.signature)
 
         // Verify Signature
         const pubKey = keypair[issuer_id].keypair.public_key
@@ -55,8 +59,10 @@ describe('Credential Object', () => {
     })
 
     it('Persona: should set a national ID', () => {
-      let persona = new cred.Persona('did:lor:lab:1001')
+      let persona = new cred.Persona('')
+      persona.fullName('John','Smith', 'Matrix')
       persona.nationalID('11223344A', 'Documento Nacional de Identidad, España')
+
       assert.equal(persona.subject.identifier['@type'], 'PropertyValue')
       assert.equal(persona.subject.identifier.propertyID, 'Documento Nacional de Identidad, España')
       assert.equal(persona.subject.identifier.value, '11223344A')
@@ -72,7 +78,7 @@ describe('Credential Object', () => {
       org.name('Caelum Labs')
       org.member('admin', admin)
       
-      let subject = org.credential.credentialSubject
+      let subject = org.credential().credentialSubject
       assert.equal(subject.name, 'Caelum Labs')
       assert.equal(subject.member['@type'], 'OrganizationRole')
       assert.equal(subject.member.roleName, 'admin')
@@ -82,14 +88,44 @@ describe('Credential Object', () => {
 
       let developer = new cred.Persona('did:lor:lab:1001')
       developer.fullName('John','Smith', 'Matrix')
-      subject = org.credential.credentialSubject
+      subject = org.credential().credentialSubject
       org.member('developer', developer)
-       assert.equal(subject.member['@type'], 'OrganizationRole')
-       assert.equal(subject.member.roleName, 'developer')
-       assert.equal(subject.member.member['@type'], 'Persona')
-       assert.equal(subject.member.member.givenName, 'John')
-       assert.equal(subject.member.member.familyName, 'Smith')
-       assert.equal(subject.member.member.additionalName, 'Matrix')
+      
+      assert.equal(subject.member['@type'], 'OrganizationRole')
+      assert.equal(subject.member.roleName, 'developer')
+      assert.equal(subject.member.member['@type'], 'Persona')
+      assert.equal(subject.member.member.givenName, 'John')
+      assert.equal(subject.member.member.familyName, 'Smith')
+      assert.equal(subject.member.member.additionalName, 'Matrix')
+    })
+
+    it('Should load a full Credential', () => {
+      let admin = new cred.Persona('did:lor:lab:unknown')
+      admin.fullName('John','Smith', 'Matrix')
+      admin.nationalID('11223344A', 'Documento Nacional de Identidad, España')
+
+      let originalOrg = new cred.Organization('did:lor:lab:1000')
+      originalOrg.name('Caelum Labs')
+      originalOrg.member('admin', admin)
+
+      const storedCredential = originalOrg.credential().credentialSubject
+      let newOrg = new cred.Organization()
+      newOrg.load(storedCredential)
+      
+      let updateAdmin = new cred.Persona()
+      let subject = originalOrg.credential()
+      updateAdmin.load(subject.credentialSubject.member.member)
+      updateAdmin.id('did:lor:lab:1001')
+      newOrg.member('admin', updateAdmin)
+      
+      subject = newOrg.credential().credentialSubject
+      assert.equal(subject.member['@type'], 'OrganizationRole')
+      assert.equal(subject.member.roleName, 'admin')
+      assert.equal(subject.member.member['@type'], 'Persona')
+      assert.equal(subject.member.member.id, 'did:lor:lab:1001')
+      assert.equal(subject.member.member.givenName, 'John')
+      assert.equal(subject.member.member.familyName, 'Smith')
+      assert.equal(subject.member.member.additionalName, 'Matrix')
     })
 
     it('Action: should add an action', () => {
