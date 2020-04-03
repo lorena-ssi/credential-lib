@@ -4,16 +4,31 @@
  * Schema.org : Persona
  */
 module.exports = class Persona {
-
     /**
      * Constructor.
      * @param {string} did The DID corresponding to the persona 
      */
-    constructor (did) {
+    constructor (did = '') {
         this.subject = {
         '@type': "Persona",
         id: did
         }
+    }
+
+    /**
+    * Loads a Subjects
+    * @param {object} subject 
+    */
+    load(subject) {
+        this.subject = subject
+    }
+
+    /**
+     * Set the ID
+     * @param {string} did DID
+     */
+    id(did) {
+        this.subject.id = did
     }
 
     /**

@@ -11,12 +11,20 @@ module.exports = class Action extends Credential {
   * @param {string} did The DID corresponding to the issuer of that action
   * @param {number} actionId Action unique identifier for the did
   */
-  constructor (did, actionId) {
+  constructor (did, actionId = 0) {
     super('Action')
     this.credential.credentialSubject = {
       '@type': 'Action',
       id: did + ',actionId='+actionId
     }
+  }
+
+  /**
+   * Loads a Subjects
+   * @param {object} subject 
+   */
+  subject(subject) {
+    this.credential.credentialSubject = subject
   }
 
   /**
@@ -27,13 +35,13 @@ module.exports = class Action extends Credential {
     this.credential.credentialSubject.name = name
   }
 
-    /**
-    * Set the description
-    * @param {string} description Full Name in ine string
-    */
-    description(description) {
-        this.credential.credentialSubject.description = description
-    }
+  /**
+  * Set the description
+  * @param {string} description Full Name in ine string
+  */
+  description(description) {
+    this.credential.credentialSubject.description = description
+  }
 
   /**
    * Sets the agent of the Action for the credential.
