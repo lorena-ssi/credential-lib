@@ -1,6 +1,6 @@
 {
   "name": "@lorena-ssi/credential-lib",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Lorena Credentials Management Library",
   "main": "src/index.js",
   "author": "Alex Puig <alex@caelumlabs.com>",

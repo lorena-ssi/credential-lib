@@ -8,10 +8,16 @@ module.exports = class Person {
      * Constructor.
      * @param {string} did The DID corresponding to the person
      */
-  constructor (did = '') {
-    this.subject = {
-      '@type': 'Person',
-      id: did
+  constructor (subject = '') {
+    if (typeof subject === 'string') {
+      this.subject = { '@type': 'Person', id: subject }
+    }
+    else if (typeof subject === 'object' && subject['@type'] === 'Person')
+    {
+      this.subject = subject
+    }
+    else {
+      this.subject = false
     }
   }
 
@@ -49,6 +55,10 @@ module.exports = class Person {
     this.subject.givenName = givenName
     this.subject.familyName = familyName
     this.subject.additionalName = additionalName
+  }
+
+  location(location) {
+    this.subject.location = location.subject
   }
 
   /**
