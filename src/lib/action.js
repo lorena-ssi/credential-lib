@@ -4,10 +4,11 @@
  */
 module.exports = class Action {
   /**
-  * Constructor.
-  * @param {string} did The DID corresponding to the issuer of that action
-  * @param {number} actionId Action unique identifier for the did
-  */
+   * Constructor.
+   *
+   * @param {string} did The DID corresponding to the issuer of that action
+   * @param {number} actionId Action unique identifier for the did
+   */
   constructor (did, actionId = 0) {
     this.subject = {
       '@type': 'Action',
@@ -16,24 +17,27 @@ module.exports = class Action {
   }
 
   /**
-  * Set the name
-  * @param {string} name Full Name in ine string
-  */
+   * Set the name
+   *
+   * @param {string} name Full Name in ine string
+   */
   name (name) {
     this.subject.name = name
   }
 
   /**
-  * Set the description
-  * @param {string} description Full Name in ine string
-  */
+   * Set the description
+   *
+   * @param {string} description Full Name in ine string
+   */
   description (description) {
     this.subject.description = description
   }
 
   /**
    * Sets the agent of the Action for the credential.
-   * @param {Person} person Persona Object
+   *
+   * @param {*} person Persona Object
    */
   agent (person) {
     this.subject.agent = person.subject
@@ -41,7 +45,8 @@ module.exports = class Action {
 
   /**
    * Sets the Location for this action.
-   * @param {Location} location Locatio Object
+   *
+   * @param {Location} location Location Object
    */
   location (location) {
     this.subject.location = location.subject

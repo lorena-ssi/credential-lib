@@ -2,7 +2,7 @@ const cred = require('../src/index')
 const assert = require('chai').assert
 
 describe('Location Credential', () => {
-  describe('Working with loacations', () => {
+  describe('Working with locations', () => {
     it('Person: should set a addressLocality', () => {
       // new Person.
       const location = new cred.Location()
