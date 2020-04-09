@@ -1,15 +1,14 @@
 'use strict'
-const Zenroom = require('@lorena-ssi/zenroom-lib')
 const baseCredential = require('../credentials/credential.json')
 
 /**
  * Javascript Class to Manage Credentials.
  */
-module.exports = class Credential {
-  constructor (type) {
+module.exports = class VerifiableCredential {
+  constructor (credential) {
     this.credential = baseCredential
-    this.credential.type = [ 'VerifiableCredential', type]
-    this.zenroom = new Zenroom(true)
+    this.credential.type = ['VerifiableCredential', credential.subject['@type']]
+    this.credential.credentialSubject = credential.subject
   }
 
   /**
@@ -21,14 +20,14 @@ module.exports = class Credential {
    * @param {string} issuerDid DID for the Identity issuing the credential
    * @param {string} verificationMethod Public Verification method for the signature (if any)
    */
-  async signCredential (keyPair, issuer, issuerDid, verificationMethod) {
+  async signCredential (zenroom, keyPair, issuer, issuerDid, verificationMethod = '') {
     const date = new Date()
     this.credential.issuer = issuerDid
     this.credential.issuanceDate = date.toISOString()
     this.credential.proof.verificationMethod = verificationMethod
 
     const subject = JSON.stringify(this.subject)
-    let proof = await this.zenroom.signMessage(issuer, keyPair, subject)
+    let proof = await zenroom.signMessage(issuer, keyPair, subject)
     proof = JSON.stringify(proof)
     this.credential.proof.signature = proof
   }
@@ -40,12 +39,11 @@ module.exports = class Credential {
    * @param {*} pubKey of the issuer
    * @returns {boolean} whether signature is correct
    */
-  async verifyCredential (issuer, pubKey) {
+  async verifyCredential (zenroom, issuer, pubKey) {
     const proof = JSON.parse(this.credential.proof.signature)
     const publicKey = []
     publicKey[issuer] = { public_key: pubKey }
-    const check = await this.zenroom.checkSignature(issuer, publicKey, proof, 'verifier')
+    const check = await zenroom.checkSignature(issuer, publicKey, proof, 'verifier')
     return (check.signature === 'correct')
   }
 }
-

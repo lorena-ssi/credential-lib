@@ -1,33 +1,39 @@
 'use strict'
 
 /**
- * Schema.org : Persona
+ * Schema.org : Location
  */
 module.exports = class Location {
-
-    /**
+  /**
      * Constructor.
      */
-    constructor () {
-        this.subject = {
-            '@type' : 'PostalAddress'
-        }
+  constructor () {
+    this.subject = {
+      '@type': 'PostalAddress'
     }
+  }
 
-    /**
-     * Set the Locality 
+  /**
+     * Set the Locality
      * @param {string} addressLocality Locality Name
      */
-    addressLocality(addressLocality) {
-        this.subject.addressLocality = addressLocality
-    }
+  addressLocality (addressLocality) {
+    this.subject.addressLocality = addressLocality
+  }
 
-    /**
+  /**
      * Set the Postal Code
      * @param {string} postalCode PostalCode
      */
-    postalCode(postalCode) {
-        this.subject.postalCode = postalCode
-    }
+  postalCode (postalCode) {
+    this.subject.postalCode = postalCode
+  }
 
+  /**
+     * Set the Postal Code
+     * @param {string} postalCode PostalCode
+     */
+  neighborhood (neighborhood) {
+    this.subject.neighborhood = neighborhood
+  }
 }

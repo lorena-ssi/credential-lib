@@ -1,26 +1,20 @@
 module.exports = {
   env: {
-    commonjs: true,
+    browser: true,
     es6: true,
-    mocha: true,
-    node: true
+    mocha: true
   },
   extends: [
-    'standard',
-    'plugin:chai-friendly/recommended',
-    'plugin:jsdoc/recommended'
+    'standard'
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
   },
   parserOptions: {
-    ecmaVersion: 2018
+    ecmaVersion: 2018,
+    sourceType: 'module'
   },
-  plugins: [
-    'chai-friendly',
-    'jsdoc'
-  ],
   rules: {
   }
 }
