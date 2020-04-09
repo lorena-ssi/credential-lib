@@ -34,7 +34,6 @@ describe('Person Credential', () => {
       assert.equal(person.subject.identifier.value, '11223344A')
     })
 
-    
     it('Person: should set Phone number', () => {
       // new Person.
       const person = new cred.Person('did:lor:lab:1001')
@@ -59,7 +58,6 @@ describe('Person Credential', () => {
       person.location(location)
       assert.equal(person.subject.location['@type'], 'PostalAddress')
       assert.equal(person.subject.location.postalCode, '08001')
-
     })
 
     it('Person: should sign and verify signature', async () => {
@@ -81,18 +79,17 @@ describe('Person Credential', () => {
       const person = new cred.Person('did:lor:1')
       person.name('Captain Hook')
       assert.equal(person.subject.name, 'Captain Hook')
-      
+
       const captain = new cred.Person(person.subject)
       assert.equal(captain.subject.name, 'Captain Hook')
     })
 
-    it('Person: should fail to load an invlaid credential', async () => {
+    it('Person: should fail to load an invalid credential', async () => {
       const location = new cred.Location()
       location.postalCode('08001')
-      
+
       const captain = new cred.Person(location.subject)
       assert.equal(captain.subject, false)
-
     })
   })
 })

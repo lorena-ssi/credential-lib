@@ -14,7 +14,7 @@ module.exports = class VerifiableCredential {
   /**
    * Creates the proof for the Credential and returns the Verifiable Credential
    *
-   *
+   * @param {*} zenroom instance to use
    * @param {object} keyPair Keypair to sign with
    * @param {string} issuer Identity issuing the credential
    * @param {string} issuerDid DID for the Identity issuing the credential
@@ -35,6 +35,7 @@ module.exports = class VerifiableCredential {
   /**
    * Verifies the signature for a credential.
    *
+   * @param {*} zenroom instance to use
    * @param {*} issuer of the credential
    * @param {*} pubKey of the issuer
    * @returns {boolean} whether signature is correct

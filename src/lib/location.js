@@ -5,8 +5,8 @@
  */
 module.exports = class Location {
   /**
-     * Constructor.
-     */
+   * Constructor.
+   */
   constructor () {
     this.subject = {
       '@type': 'PostalAddress'
@@ -14,25 +14,28 @@ module.exports = class Location {
   }
 
   /**
-     * Set the Locality
-     * @param {string} addressLocality Locality Name
-     */
+   * Set the Locality
+   *
+   * @param {string} addressLocality Locality Name
+   */
   addressLocality (addressLocality) {
     this.subject.addressLocality = addressLocality
   }
 
   /**
-     * Set the Postal Code
-     * @param {string} postalCode PostalCode
-     */
+   * Set the Postal Code
+   *
+   * @param {string} postalCode PostalCode
+   */
   postalCode (postalCode) {
     this.subject.postalCode = postalCode
   }
 
   /**
-     * Set the Postal Code
-     * @param {string} postalCode PostalCode
-     */
+   * Set the Postal Code
+   *
+   * @param {string} neighborhood neighborhood
+   */
   neighborhood (neighborhood) {
     this.subject.neighborhood = neighborhood
   }
