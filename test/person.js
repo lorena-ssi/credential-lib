@@ -62,21 +62,6 @@ describe('Person Credential', () => {
 
     })
 
-    it('Person: should sign and verify signature', async () => {
-      const issuer = 'did:lor:lab:1000'
-      const issuerId = 'caelum'
-      const keypair = await zenroom.newKeyPair(issuerId)
-      const person = new cred.Person('did:lor:lab:1001')
-
-      const credential = new cred.VerifiableCredential(person)
-      // Sign the persona
-      await credential.signCredential(zenroom, keypair, issuerId, issuer)
-
-      // Verify Signature
-      const pubKey = keypair[issuerId].keypair.public_key
-      assert.isTrue(await credential.verifyCredential(zenroom, issuerId, pubKey))
-    })
-
     it('Person: should load a previous credential', async () => {
       const person = new cred.Person('did:lor:1')
       person.name('Captain Hook')
