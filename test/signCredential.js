@@ -13,16 +13,24 @@ describe('Credential Object', () => {
       const person = new cred.Person(issuer)
       assert.typeOf(person, 'object', 'we have an object')
 
+      
       // Sign  Credential
-      const signedCredential = await cred.signCredential(zenroom, keypair, person, issuer, verification)
+      const signedCredential = await cred.signCredential(zenroom, person, keypair, issuer, verification)
       assert.equal(signedCredential.issuer, issuer)
       assert.isNotEmpty(signedCredential.issuanceDate)
       assert.equal(signedCredential.proof.verificationMethod, verification)
       assert.isNotEmpty(signedCredential.proof.signature)
 
       // Verify Signature
-      const pubKey = keypair[issuerId].keypair.public_key
-      assert.isTrue(await vc.verifyCredential(zenroom, issuerId, pubKey))
+      const pubKey = keypair[issuer].keypair.public_key
+      assert.isTrue(await cred.verifyCredential(zenroom, signedCredential, pubKey, issuer ))
+
+      const signedCredentialNOVerification = await cred.signCredential(zenroom, person, keypair, issuer)
+      assert.equal(signedCredentialNOVerification.issuer, issuer)
+      assert.isNotEmpty(signedCredentialNOVerification.issuanceDate)
+      assert.equal(signedCredentialNOVerification.proof.verificationMethod, '')
+      assert.isNotEmpty(signedCredentialNOVerification.proof.signature)
+
     })
   })
 })
