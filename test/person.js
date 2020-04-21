@@ -1,6 +1,4 @@
 const cred = require('../src/index')
-const Zenroom = require('@lorena-ssi/zenroom-lib')
-const zenroom = new Zenroom(true)
 const assert = require('chai').assert
 
 describe('Person Credential', () => {
