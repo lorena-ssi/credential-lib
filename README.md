@@ -1,5 +1,8 @@
 # Credentials Library
 
+[![Build Status](https://travis-ci.com/lorena-ssi/credential-lib.svg?branch=master)](https://travis-ci.com/lorena-ssi/credential-lib)
+[![Coverage Status](https://coveralls.io/repos/github/lorena-ssi/credential-lib/badge.svg?branch=master)](https://coveralls.io/github/lorena-ssi/credential-lib?branch=master&service=github)
+
 Library to interact with Verifiable Credentials
 
 The Zenroom VM is used : https://github.com/lorena-ssi/zenroom-lib

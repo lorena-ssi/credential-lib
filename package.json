@@ -43,7 +43,7 @@
     "coverage": "nyc npm run mocha && nyc report --reporter=html --reporter=lcov --reporter=text-summary",
     "coveralls": "nyc npm run mocha && nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint ./src ./test",
-    "lint-fix": "eslint ./src ./test --fix",
+    "lint:fix": "eslint ./src ./test --fix",
     "npm:publish": "npm publish --access public",
     "mocha": "mocha test --timeout 20000 --bail",
     "test": "npm run mocha"

@@ -2,14 +2,14 @@
 const baseCredential = require('../credentials/credential.json')
 
 /**
-  * Creates the proof for the Credential and returns the Verifiable Credential
-  *
-  *
-  * @param {object} keyPair Keypair to sign with
-  * @param {object} credential Credential to be signed
-  * @param {string} issuerDid DID for the Identity issuing the credential
-  * @param {string} verificationMethod Public Verification method for the signature (if any)
-*/
+ * Creates the proof for the Credential and returns the Verifiable Credential
+ *
+ * @param {object} zenroom to use
+ * @param {object} credential Credential to be signed
+ * @param {object} keyPair Keypair to sign with
+ * @param {string} issuer DID for the Identity issuing the credential
+ * @param {string} verificationMethod Public Verification method for the signature (if any)
+ */
 const signCredential = async (zenroom, credential, keyPair, issuer, verificationMethod = '') => {
   const signedCredential = baseCredential
   signedCredential.type = ['VerifiableCredential', credential.subject['@type']]
@@ -27,5 +27,4 @@ const signCredential = async (zenroom, credential, keyPair, issuer, verification
   return signedCredential
 }
 
-module.exports = signCredential 
-
+module.exports = signCredential

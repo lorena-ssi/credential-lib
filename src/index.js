@@ -5,4 +5,4 @@ const Location = require('./lib/location')
 const signCredential = require('./lib/signCredential')
 const verifyCredential = require('./lib/verifyCredential')
 
-module.exports = { Organization, Person, Action, Location, signCredential, verifyCredential  }
+module.exports = { Organization, Person, Action, Location, signCredential, verifyCredential }
