@@ -34,5 +34,14 @@ describe('Action Credential', () => {
       assert.equal(action.subject.location.addressLocality, 'Mytown')
       assert.equal(action.subject.location.postalCode, '08000')
     })
+
+    it('Action: should add a startTiem and endTime', () => {
+      const action = new cred.Action('did:lor:lab:1000', 20)
+      action.name('Task1')
+      action.startTime('2020-04-23 00:00:00')
+      action.endTime('2020-04-23 23:59:59')
+      assert.equal(action.subject.startTime, '2020-04-23 00:00:00')
+      assert.equal(action.subject.endTime, '2020-04-23 23:59:59')
+    })
   })
 })
