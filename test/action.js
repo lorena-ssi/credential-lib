@@ -21,6 +21,13 @@ describe('Action Credential', () => {
       action.agent(agent)
     })
 
+    it('Action: should add extra fields', () => {
+      const action = new cred.Action('did:lor:lab:1000')
+      action.extra({ extra1: '1', extra2: 2 })
+      assert.equal(action.subject.extra.extra1, '1')
+      assert.equal(action.subject.extra.extra2, '2')
+    })
+
     it('Action: should add a location to the action', () => {
       const action = new cred.Action('did:lor:lab:1000', 20)
       action.name('Task1')
@@ -35,7 +42,7 @@ describe('Action Credential', () => {
       assert.equal(action.subject.location.postalCode, '08000')
     })
 
-    it('Action: should add a startTiem and endTime', () => {
+    it('Action: should add a startTime and endTime', () => {
       const action = new cred.Action('did:lor:lab:1000', 20)
       action.name('Task1')
       action.startTime('2020-04-23 00:00:00')
