@@ -31,13 +31,13 @@ module.exports = class Action {
     this.subject.description = description
   }
 
-   /**
+  /**
     * Set extra fields
     * @param {object} extra Extra fields
     */
-    extra (extra) {
-        this.subject.extra = extra
-    }
+  extra (extra) {
+    this.subject.extra = extra
+  }
 
   /**
    * Sets the agent of the Action for the credential.

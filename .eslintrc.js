@@ -1,15 +1,12 @@
 module.exports = {
   env: {
-    browser: true,
-    commonjs: true,
     es6: true,
-    mocha: true,
-    node: true
+    node: true,
+    mocha: true
   },
   extends: [
     'standard',
-    'plugin:chai-friendly/recommended',
-    'plugin:jsdoc/recommended'
+    'plugin:chai-friendly/recommended'
   ],
   globals: {
     Atomics: 'readonly',
@@ -20,9 +17,6 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'chai-friendly',
-    'jsdoc'
-  ],
-  rules: {
-  }
+    'chai-friendly'
+  ]
 }
