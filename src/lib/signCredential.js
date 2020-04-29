@@ -21,8 +21,7 @@ const signCredential = async (zenroom, credential, keyPair, issuer, verification
   signedCredential.proof.verificationMethod = verificationMethod
 
   const subject = JSON.stringify(this.subject)
-  let proof = await zenroom.signMessage(issuer, keyPair, subject)
-  proof = JSON.stringify(proof)
+  const proof = await zenroom.signMessage(issuer, keyPair, subject)
   signedCredential.proof.signature = proof
   return signedCredential
 }

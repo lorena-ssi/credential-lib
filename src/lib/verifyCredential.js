@@ -11,7 +11,7 @@
  */
 const verifyCredential = async (zenroom, credential, pubKey, issuer) => {
   const signedCredential = credential
-  const proof = JSON.parse(signedCredential.proof.signature)
+  const proof = signedCredential.proof.signature
   const publicKey = []
   publicKey[issuer] = { public_key: pubKey }
   const check = await zenroom.checkSignature(issuer, publicKey, proof, 'verifier')
