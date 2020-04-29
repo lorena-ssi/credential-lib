@@ -30,5 +30,20 @@ describe('Credential Object', () => {
       assert.equal(signedCredentialNOVerification.proof.verificationMethod, '')
       assert.isNotEmpty(signedCredentialNOVerification.proof.signature)
     })
+
+    // This is necessary because sometimes the signature comes through as a string, not json
+    it('should verify a malformed Credential Object', async () => {
+      const issuer = 'did:lor:lab:1000'
+      const keypair = await zenroom.newKeyPair(issuer)
+      const person = new cred.Person(issuer)
+
+      // Sign  Credential
+      const signedCredential = await cred.signCredential(zenroom, person, keypair, issuer, verification)
+      signedCredential.proof.signature = JSON.stringify(signedCredential.proof.signature)
+
+      // Verify Signature
+      const pubKey = keypair[issuer].keypair.public_key
+      assert.isTrue(await cred.verifyCredential(zenroom, signedCredential, pubKey, issuer))
+    })
   })
 })
