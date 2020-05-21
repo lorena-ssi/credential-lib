@@ -13,6 +13,24 @@ describe('Location Credential', () => {
       assert.equal(location.subject.addressLocality, 'Myoldtown')
     })
 
+    it('Person: should set a addressLocality', () => {
+      // new Person.
+      const location = new cred.Location()
+      location.streetAddress('Reina Cristina 9, ppal')
+      location.addressLocality('Sitges')
+      location.postalCode('08001')
+      location.addressRegion('Barcelona')
+      location.addressCountry('Spain')
+
+      // Check Location.
+      assert.equal(location.subject['@type'], 'PostalAddress')
+      assert.equal(location.subject.streetAddress, 'Reina Cristina 9, ppal')
+      assert.equal(location.subject.addressLocality, 'Sitges')
+      assert.equal(location.subject.postalCode, '08001')
+      assert.equal(location.subject.addressRegion, 'Barcelona')
+      assert.equal(location.subject.addressCountry, 'Spain')
+    })
+
     it('Person: should set a postalCode', () => {
       // new Person.
       const location = new cred.Location()

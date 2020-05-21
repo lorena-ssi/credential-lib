@@ -39,4 +39,31 @@ module.exports = class Location {
   neighborhood (neighborhood) {
     this.subject.neighborhood = neighborhood
   }
+
+  /**
+   * Set the streetAddress
+   *
+   * @param {string} streetAddress streetAddress
+   */
+  streetAddress (streetAddress) {
+    this.subject.streetAddress = streetAddress
+  }
+
+  /**
+   * Set the addressCountry
+   *
+   * @param {string} addressCountry addressCountry
+   */
+  addressCountry (addressCountry) {
+    this.subject.addressCountry = addressCountry
+  }
+
+  /**
+   * Set the addressRegion
+   *
+   * @param {string} addressRegion addressRegion
+   */
+  addressRegion (addressRegion) {
+    this.subject.addressRegion = addressRegion
+  }
 }
