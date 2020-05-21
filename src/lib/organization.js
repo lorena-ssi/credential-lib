@@ -9,10 +9,12 @@ module.exports = class Organization {
    *
    * @param {string} did The DID corresponding to the persona
    */
-  constructor (did) {
+  constructor (did = false) {
     this.subject = {
-      '@type': 'Organization',
-      id: did
+      '@type': 'Organization'
+    }
+    if (did !== false) {
+      this.subject.id = did
     }
   }
 
@@ -23,6 +25,42 @@ module.exports = class Organization {
    */
   name (name) {
     this.subject.name = name
+  }
+
+  /**
+   * Set the legal name
+   *
+   * @param {string} name Full Legal Name in ine string
+   */
+  legalName (legalName) {
+    this.subject.legalName = legalName
+  }
+
+  /**
+   * Set the taxID
+   *
+   * @param {string} taxID taxID
+   */
+  taxID (taxID) {
+    this.subject.taxID = taxID
+  }
+
+  /**
+   * Set the url
+   *
+   * @param {string} url URL
+   */
+  url (url) {
+    this.subject.url = url
+  }
+
+  /**
+   * Set the foundingDate
+   *
+   * @param {string} foundingDate founding Date
+   */
+  foundingDate (foundingDate) {
+    this.subject.foundingDate = foundingDate
   }
 
   /**
@@ -37,5 +75,14 @@ module.exports = class Organization {
       roleName: roleName,
       member: persona.subject
     }
+  }
+
+  /**
+   * Sets the location of the organization.
+   *
+   * @param {*} location Location Object
+   */
+  location (location) {
+    this.subject.location = location.subject
   }
 }
